@@ -54,4 +54,4 @@ setInterval(() => {
 });
 }, 5000);
 
-serv.listen(process.env.PORT);
+serv.listen(process.env.PORT || 2000);

@@ -67,6 +67,15 @@ function addInputListeners(){
         let gridPos = posToGridPos(pos.x, pos.y);
         socket.emit("rightclick", gridPos);
     });
+    canvas.addEventListener("mousedown", event=>{
+        if(!inGame) return;
+        if (event.button === 1) {
+            let pos = getEventPosInCanvas(event);
+            let gridPos = posToGridPos(pos.x, pos.y);
+            socket.emit("middleclick", gridPos);
+        }
+    });
+
 }
 
 function getEventPosInCanvas(event){
