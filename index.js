@@ -3,6 +3,7 @@ const app = express();
 const serv = require("http").Server(app);
 const { Server } = require("socket.io");
 const io = new Server(serv);
+require('dotenv').config()
 
 const gameList = require("./server/gameList");
 const Game = require("./server/game");
@@ -53,4 +54,4 @@ setInterval(() => {
 });
 }, 5000);
 
-serv.listen(80);
+serv.listen(process.env.PORT);
