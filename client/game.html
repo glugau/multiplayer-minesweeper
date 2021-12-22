@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiplayer Minesweeper</title>
+        <link rel="stylesheet" href="/client/css/game.css"/>
+        <link rel="icon" href="/client/img/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/client/img/favicon.ico" type="image/x-icon" />
+    </head>
+    <script src="https://kit.fontawesome.com/47020a1ab7.js" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <body>
+        <div id="username-selection-wrapper" style="display:flex">
+            <div id="username-selection-main" class="menu-selection-box">
+                <span id="username-game-id" class="text-title"></span>
+                <input type="text" id="username-text-field" placeholder="Username"/>
+                <button onclick="sendUsername();" id="username-confirm-btn" class="big-button">Join Game!</button>
+            </div>
+            <div class="game-url-display-div">
+                <input type="text" class="game-url-display-text" readonly="true" value="NO GAME URL"/>
+                <a href="#" onclick="copyURLToClipboard()">Click to copy</a>
+            </div>
+        </div>
+        <div id="lobby-wrapper" style="display:none">
+            <div id="lobby-settings-url-wrapper">
+                <div id="lobby-settings" class="menu-selection-box">
+                    <span class="text-title">Game Settings</span>
+                    <div class="lobby-setting">
+                        <span class="lobby-settings-text">Difficulty preset</span>
+                        <select id="lobby-setting-difficulty" onchange="setDifficulty(this.value); updateSettings();" disabled>
+                            <option value="beginner">Beginner</option> <!-- 9x9 10 mines -->
+                            <option value="intermediate">Intermediate</option> <!-- 16x16 40 mines -->
+                            <option value="expert">Expert</option> <!-- 16x30 99 mines -->
+                            <option value="custom">Custom</option>
+                          </select>
+                    </div>
+                    <div class="lobby-setting">
+                        <span class="lobby-settings-text">Grid width</span><input disabled id="lobby-setting-grid-width-input" type="range" value="9" min="9" max="50" oninput="this.nextElementSibling.value = this.value; updateSettings();" />
+                        <output>10</output>
+                    </div>
+                    <div class="lobby-setting">
+                        <span class="lobby-settings-text">Grid height</span><input disabled id="lobby-setting-grid-height-input" type="range" value="9" min="9" max="50" oninput="this.nextElementSibling.value = this.value; updateSettings();" />
+                        <output>9</output>
+                    </div>
+                    <div class="lobby-setting">
+                        <span class="lobby-settings-text">Mine amount</span><input disabled id="lobby-setting-mine-amount-input" type="range" value="10" min="10" max="150" oninput="this.nextElementSibling.value = this.value; updateSettings();" />
+                        <output>9</output>
+                    </div>
+                    <button class="big-button" id="start-game-btn" disabled style="background-color: gray;" onclick="startGame()">Start Game!</button>
+                </div>
+                <div class="game-url-display-div">
+                    <input type="text" class="game-url-display-text" readonly="true" value="NO GAME URL"/>
+                    <a href="#" onclick="copyURLToClipboard()">Click to copy</a>
+                </div>
+            </div>
+            <div id="lobby-player-list">
+                <div class="player-list-title-div menu-selection-box">
+                    <span class="text-title">Connected Players</span>
+                </div>
+                <div class="player-list-div">
+                    <ul class="nice-list player-list-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="game-main" style="display:none">
+            <div id="game-infos">
+                <div class="menu-selection-box" id="game-infos-text-div">
+                    <span id="bomb-count-display" class="text-title" style="display:flex; flex-direction: row; gap:5px;"><i class="fas fa-bomb"></i>0</span>
+                    <span id="chrono-display" class="text-title" style="display: flex; flex-direction: row; gap:5px;"><i class="fas fa-stopwatch"></i>0</span>
+                    <span class="text-title" id="lc-text">Left Click: Sweep</span>
+                    <span class="text-title" >Right Click: Place</span>
+                </div>
+            </div>
+            <canvas id="game-canvas"></canvas>
+            <div id="game-player-list">
+                <div class="player-list-title-div menu-selection-box">
+                    <span class="text-title">Connected Players</span>
+                </div>
+                <div class="player-list-div">
+                    <ul class="nice-list player-list-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script src="/client/js/gameClient.js"></script>
+    </body>
+</html>

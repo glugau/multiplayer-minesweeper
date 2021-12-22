@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Multiplayer Minesweeper</title>
+        <link rel="stylesheet" href="/client/css/index.css"/>
+        <link rel="stylesheet" href="/client/css/game.css"/>
+        <link rel="icon" href="/client/img/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="/client/img/favicon.ico" type="image/x-icon" />
+    </head>
+    <body>
+        <div id="main-menu-wrapper" style="display:flex">
+            <div id="game-title-div" class="menu-selection-box">
+                <span id="game-title">Multiplayer Minesweeper</span>
+            </div>
+            <div id="username-selection-create-game" class="menu-selection-box">
+                <span id="username-game-id" class="text-title"></span>
+                <input type="text" id="username-text-field" placeholder="Username"/>
+                <button onclick="createGame();" id="username-confirm-btn" class="big-button">Create a game!</button>
+            </div>
+        </div>
+        <script>
+            function validUsername(name){
+                return !(name.length < 3 || name.length > 12);
+            }
+            function createGame(){
+                let username = document.querySelector("#username-text-field").value;
+                if(validUsername(username)){
+                    let gameIDn = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+                    let gameID = gameIDn.toString(36);
+                    window.sessionStorage.setItem("username", username);
+                    window.location.href = document.location.origin + "/" + gameID;
+                }
+                else{
+                    alert("Name must be between 3 and 12 characters long.");
+                }
+            }
+        </script>
+    </body>
+</html>

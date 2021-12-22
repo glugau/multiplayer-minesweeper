@@ -1,0 +1,21 @@
+#main-menu-wrapper{
+    width: 450px;
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+}
+#username-selection-create-game{
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 20px;
+}
+
+#game-title-div{
+    padding: 5px 0;
+}
+
+#game-title{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 35px;
+}
