@@ -150,6 +150,8 @@ class Game{
         socket.on("middleclick", gpos => {
             if(this.state != Game.States.running) return;
             if(gpos.x < 0 || gpos.x > this.settings.width - 1 || gpos.y < 0 || gpos.y > this.settings.width - 1) return;
+            if(!this.allReady) return;
+            if(this.gameOver) return;
 
             this.trySweep(gpos.x-1, gpos.y-1);
             this.trySweep(gpos.x, gpos.y-1);
